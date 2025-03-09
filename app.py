@@ -42,7 +42,10 @@ def get_simulation_number_of_steps():
     data = read_json()
     return jsonify(data['steps'])
 
-
+@app.get('/simulation_data/city_grid')
+def get_simulation_city_grid():
+    data = read_json()
+    return jsonify(data['city_grid'])
 
 @app.post('/simulation_data')
 def add_whole_simulation():
