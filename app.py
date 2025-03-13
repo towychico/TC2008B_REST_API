@@ -47,6 +47,21 @@ def get_simulation_city_grid():
     data = read_json()
     return jsonify(data['city_grid'])
 
+@app.post('/simulation_data/city_grid')
+def add_city_grid():
+    new_data = request.get_json()
+
+    if not new_data:
+        abort(401,description="Unauthorized: invalid or missing city grid")
+    data = read_json()
+    if isinstance(data, dict) and "error" in data:
+        return jsonify(data), 404
+    data['city_grid'] = new_data
+
+    with open(JSON_FILE, "w") as file:
+        json.dump(data, file, indent=4)
+
+
 @app.post('/simulation_data')
 def add_whole_simulation():
     new_data =request.get_json()
